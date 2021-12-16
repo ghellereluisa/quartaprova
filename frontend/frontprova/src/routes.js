@@ -1,7 +1,7 @@
 import Home from './Pages/Home';
 import { Routes, Route } from 'react-router-dom';
 
-function Routes() {
+function Rotas() {
 
     return(
         <Routes>
@@ -11,4 +11,4 @@ function Routes() {
 
 }
 
-export default Routes;
+export default Rotas;
