@@ -1,5 +1,7 @@
 package com.example.prova.quartaprova.service.implementation;
 
+import com.example.prova.quartaprova.exception.FornecedorExistenteException;
+import com.example.prova.quartaprova.exception.FornecedorNaoExisteException;
 import com.example.prova.quartaprova.model.Fornecedor;
 import com.example.prova.quartaprova.repository.FornecedorRepository;
 import com.example.prova.quartaprova.service.FornecedorService;

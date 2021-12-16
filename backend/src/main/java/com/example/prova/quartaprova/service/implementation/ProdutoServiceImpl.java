@@ -1,6 +1,7 @@
 package com.example.prova.quartaprova.service.implementation;
 
 
+import com.example.prova.quartaprova.exception.ProdutoNaoExisteException;
 import com.example.prova.quartaprova.model.Produto;
 import com.example.prova.quartaprova.repository.ProdutoRepository;
 import com.example.prova.quartaprova.service.ProdutoService;

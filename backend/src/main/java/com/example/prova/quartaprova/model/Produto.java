@@ -32,3 +32,4 @@ public class Produto {
     @JoinColumn(name = "tipo_id")
     private TipoProduto tipo;
 
+}
