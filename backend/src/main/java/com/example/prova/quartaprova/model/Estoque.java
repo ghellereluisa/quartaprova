@@ -12,31 +12,31 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tipoproduto")
-public class TipoProduto implements Serializable {
+@Table(name = "estoque")
+public class Estoque implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tipoId;
+    private Long estoqueId;
     private String nome;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "tipoproduto" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "estoque_id" , cascade = CascadeType.ALL)
     private List<Produto> produto = new ArrayList<>();
 
-    public TipoProduto(Long tipoId, String nome){
-        this.tipoId = tipoId;
+    public Estoque(Long id, String nome) {
+        this.estoqueId = id;
         this.nome = nome;
     }
 
     public Long getTipoId() {
-        return tipoId;
+        return estoqueId;
     }
 
     public void setTipoId(Long tipoId) {
-        this.tipoId = tipoId;
+        this.estoqueId = tipoId;
     }
 
     public String getNome() {
@@ -47,7 +47,7 @@ public class TipoProduto implements Serializable {
         this.nome = nome;
     }
 
-    public List<Produto> getProdutos() {
+    public List<Produto> getProduto() {
         return produto;
     }
 }

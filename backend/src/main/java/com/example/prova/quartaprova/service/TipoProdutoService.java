@@ -1,17 +1,43 @@
 package com.example.prova.quartaprova.service;
 
-
 import com.example.prova.quartaprova.model.TipoProduto;
+import com.example.prova.quartaprova.repository.TipoProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
-public interface TipoProdutoService {
-    TipoProduto getTipoProdutoById(Long id);
+@Service
+public class TipoProdutoService {
 
-    TipoProduto criarTipoProduto(TipoProduto tipoProduto);
+    @Autowired
+    TipoProdutoRepository trep;
 
-    void removerTipoProduto(Long id);
+    public List<TipoProduto> ListaTipoProdutos() {
+        return trep.findAll();
+    }
 
-    TipoProduto atualizarTipoProduto(Long id, TipoProduto novoTipoProduto);
+    public TipoProduto ListaTipoProdutoById(Long tipoProdutoId) {
+        Optional<TipoProduto> obj = trep.findById(tipoProdutoId);
+        return obj.get();
+    }
 
-    List<TipoProduto> listarTiposProduto();
+    public TipoProduto CadastraTipoProduto(TipoProduto tipoProduto) {
+        return trep.save(tipoProduto);
+    }
+
+    public void DeletaTipoProduto(Long tipoProdutoId) {
+        trep.deleteById(tipoProdutoId);
+    }
+
+    public TipoProduto AlteraTipoProduto(Long tipoProdutoId, TipoProduto obj) {
+        TipoProduto entity = trep.findById(tipoProdutoId).get();
+        UpdateData(entity, obj);
+        return trep.save(entity);
+    }
+
+    private void UpdateData(TipoProduto entity, TipoProduto obj) {
+        entity.setNome(obj.getNome());
+    }
 }

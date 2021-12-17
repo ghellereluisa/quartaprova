@@ -1,59 +1,54 @@
 package com.example.prova.quartaprova.controller;
 
-
-import com.example.prova.quartaprova.dto.TipoProdutoDTO;
 import com.example.prova.quartaprova.model.TipoProduto;
+import com.example.prova.quartaprova.repository.TipoProdutoRepository;
 import com.example.prova.quartaprova.service.TipoProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(
+        origins = {"*"},
+        maxAge = 3600,
+        allowCredentials = "false")
 @RestController
-@CrossOrigin
-@RequestMapping("/api/tiposproduto")
+@RequestMapping("/api/tipoproduto")
 public class TipoProdutoController {
 
     @Autowired
-    TipoProdutoService tipoProdutoService;
+    private TipoProdutoService tserv;
+
+    @Autowired
+    private TipoProdutoRepository trep;
 
     @GetMapping
-    public ResponseEntity<?> listarTiposProdutos(){
-        List<TipoProdutoDTO> tiposProdutoDTO = TipoProdutoDTO.toDTOs(tipoProdutoService.listarTiposProduto());
-
-
-        return new ResponseEntity<>(tiposProdutoDTO, HttpStatus.OK);
+    public List<TipoProduto> listarTiposProduto() {
+        return tserv.ListaTipoProdutos();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> retornarTipoProduto(@PathVariable("id") Long id){
-        TipoProdutoDTO tipoProdutoDTO = TipoProdutoDTO.toDTO(tipoProdutoService.getTipoProdutoById(id));
-
-        return new ResponseEntity<>(tipoProdutoDTO, HttpStatus.OK);
+    @GetMapping(value = "/{tipoId}")
+    public ResponseEntity<TipoProduto> buscarTipoProdutoById(@PathVariable Long tipoId) {
+        TipoProduto obj = tserv.ListaTipoProdutoById(tipoId);
+        return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<?> criarTipoProduto(@RequestBody TipoProdutoDTO tipoProdutoDTO) {
-        TipoProduto tipoProduto = TipoProdutoDTO.toEntity(tipoProdutoDTO);
-        TipoProdutoDTO tipoProdutoCriadoDTO = TipoProdutoDTO.toDTO(tipoProdutoService.criarTipoProduto(tipoProduto));
-
-        return new ResponseEntity<>(tipoProdutoCriadoDTO, HttpStatus.OK);
+    public ResponseEntity<TipoProduto> cadastraTipoProduto(@RequestBody TipoProduto tp){
+        tp = tserv.CadastraTipoProduto(tp);
+        return ResponseEntity.ok().body(tp);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> removerTipoProduto(@PathVariable ("id") Long id) {
-        tipoProdutoService.removerTipoProduto(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping(value = "/{tipoId}")
+    public ResponseEntity<TipoProduto> alteraTipoProduto(@RequestBody TipoProduto tp, @PathVariable Long tipoId) {
+        tp = tserv.AlteraTipoProduto(tipoId, tp);
+        return ResponseEntity.ok().body(tp);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarTipoProduto(@PathVariable ("id") Long id, @RequestBody TipoProdutoDTO tipoProdutoDTO){
-        TipoProduto tipoProduto = TipoProdutoDTO.toEntity(tipoProdutoDTO);
-        TipoProdutoDTO tipoProdutoAtualizadoDTO = TipoProdutoDTO.toDTO(tipoProdutoService.atualizarTipoProduto(id, tipoProduto));
-
-        return new ResponseEntity<>(tipoProdutoAtualizadoDTO, HttpStatus.OK);
+    @DeleteMapping(value = "/{tipoId}")
+    public ResponseEntity<Void> deletaTipoProduto(@PathVariable Long tipoId) {
+        tserv.DeletaTipoProduto(tipoId);
+        return ResponseEntity.noContent().build();
     }
 }
