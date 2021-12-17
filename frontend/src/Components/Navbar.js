@@ -16,13 +16,13 @@ const NavWrapper = styled.div`
         justify-content: space-between;
 
         h2{
-            width: 13%;
             text-align: center;
             background-color: black;
             color: red;
         }
 
         .navigation{
+            height: 4rem;
             width: 20%;
             background-color: black;
 
@@ -30,11 +30,11 @@ const NavWrapper = styled.div`
                 outline: none;
                 border: 2px solid white;
                 padding: 3%;
-                border-radius: 10px;
+                border-radius: 2px;
                 background: transparent;
                 width: 40%;
                 font-size: 1.2rem;
-                font-weight: bold;
+                font-weight: regular;
                 color: white;
             }
         }

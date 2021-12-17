@@ -60,7 +60,7 @@ function Modal(props) {
 
     useEffect(() => {
         async function BuscaProduto() {
-            const response = await api.get(`produtos/${props}`)
+            const response = await api.get(`produto/${props}`)
             setProduto(response.data);
         }
     });
